@@ -23,7 +23,7 @@ var server = http.createServer(app);
 server.listen(port);
 
 //Azure Noti
-var azure = require('auzre');
+var azure = require('azure');
 var hubName = "azurenoti";
 var connectionString = "Endpoint=sb://azurenoti.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=qSFRMpnTDuxKp57HjLg6xBPGOI9BafQzznvW9f/8N0w=";
 var notificationHubService = azure.createNotificationHubService(hubName,connectionString);
