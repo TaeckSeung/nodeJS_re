@@ -1,0 +1,30 @@
+<% include layout %>
+
+<body>
+    <div id="chat" class='box'>
+        <div class="chatWrap">
+            <div class="left">
+                <div class="chatLog" id='chatLog'>
+                </div>
+                <div class="inputWrap"><input type='text' id='chatInput' maxlength='200' placeholder='내용을 입력하세요...' /></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        //route에서 설정한 io_url변수를 통해 해당 서버에 접속
+        var socket = io.connect('<%=io_url%>');
+        //fromclient키값과 메시지를 엔터키입력을 통해 서버에 보냄
+        $("#chatInput").keyup(function(event) {
+            if (event.which == 13) {
+                socket.emit('fromclient',{msg:$('#chatInput').val()});
+                $('#chatInput').val('');
+            }
+        });
+        //서버 응답으로 온 toclient를 처리
+        socket.on('toclient',function(data){
+            console.log(data.msg);
+            $('#chatLog').append(data.msg+'<BR>');
+        });
+    </script>
+</body>
+</html>
